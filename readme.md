@@ -4,7 +4,7 @@ Kahlua
 A small library to simplify common tasks.
 An eventual goal is "batteries" for Lua.
 
-### Prototype
+#### Prototype
 
 Lua isn't an object-oriented language, and objects are traditionally implemented
 via prototypes. The straightforward way of creating them isn't too cumbersome,
@@ -15,7 +15,7 @@ the code?
 To create a "class" (a prototype), use this notation:
 
 ```lua
-MagicBeing = prototype() {
+MagicBeing = kahlua.prototype () {
     knows_about = "magic";
     talk = function (self)
         print("I can tell you about " .. self.knows_about)
@@ -24,13 +24,13 @@ MagicBeing = prototype() {
 ```
 
 This will create a prototype called `MagicBeing`. Apart from the fields and
-methods in this constructor, it will also create a method `new (self)` that can
+methods in this constructor, it will also create a method `new(self)` that can
 spawn "descendant" objects.
 
 Inheritance is also straightforward:
 
 ```lua
-Ogre = prototype(MagicBeing) {
+Ogre = kahlua.prototype (MagicBeing) {
     knows_about = "onions";
 }
 shrek = Ogre:new()
