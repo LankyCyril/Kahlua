@@ -1,4 +1,21 @@
 kahlua = {
+    global = function (module, elements)
+        if (elements == nil) then
+            elements = {}
+            for element, _ in pairs(module) do
+                table.insert(elements, element)
+            end
+        elseif (type(elements) == "string") then
+            elements = {elements}
+        end
+        for _, element in pairs(elements) do
+            if module[element] ~= nil then
+                _G[element] = module[element]
+            else
+                error(tostring(element) .. " not found in module")
+            end
+        end
+    end;
     prototype = function (parent_prototype)
         if parent_prototype == nil then
             return function (implementation)
