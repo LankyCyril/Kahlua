@@ -30,7 +30,7 @@ kahlua = {
                 end
                 return final_prototype
             end
-        elseif parent_prototype.new == nil then
+        elseif (parent_prototype.new == nil) or (type(parent_prototype.new) ~= "function") then
             error("Parent doesn't have a constructor.")
         else
             return function (implementation)
