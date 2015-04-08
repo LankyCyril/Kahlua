@@ -61,3 +61,13 @@ require "kahlua": global "prototype"
 `require` imports kahlua and returns it as a table, which allows me to use its
 method (`global`) immediately and pass it itself as the first argument via
 colon.
+
+#### lines
+
+This is a very simple extension to `io.lines`.
+Sometimes it's useful to register EOF inside a loop, and `kahlua.lines`, instead
+of silently finishing at EOF like `io.lines` does, returns one more chunk which
+is a boolean `false`.
+
+**NB** it relies on the implementation of `io.lines`, so if you modified it in
+some way, you're on your own.
