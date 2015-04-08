@@ -5,7 +5,7 @@ A small library to simplify common tasks.
 An eventual goal is "batteries" for Lua.
 
 
-#### prototype
+#### kahlua.prototype
 
 Lua isn't an object-oriented language, and objects are traditionally implemented
 via prototypes. The straightforward way of creating them isn't too cumbersome,
@@ -41,7 +41,7 @@ shrek:talk()
 When shrek talks, naturally, it says `"I can tell you about onions"`.
 
 
-#### global
+#### kahlua.global
 
 `kahlua.global(some_table, fields)` imports specified fields from a table
 into the global namespace (`_G`).
@@ -65,12 +65,12 @@ method (`global`) immediately and pass it itself as the first argument via a
 colon.
 
 
-#### lines
+#### kahlua.io.lines
 
 This is a very simple extension to `io.lines`.
-Sometimes it's useful to register EOF inside a loop, and `kahlua.lines`, instead
-of silently finishing at EOF like `io.lines` does, returns one more chunk which
-is a boolean `false`.
+Sometimes it's useful to register EOF inside a loop, and `kahlua.io.lines`,
+instead of silently finishing at EOF like `io.lines` does, returns one more
+chunk which is a boolean `false`.
 
 **NB!** it relies on the implementation of `io.lines`, so if you modified it in
 some way, you're on your own.
