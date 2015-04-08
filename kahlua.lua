@@ -38,6 +38,14 @@ kahlua = {
             end
         end
     end;
+    lines = function (filename)
+        return coroutine.wrap(function ()
+            for line in io.lines(filename) do
+                coroutine.yield(line)
+            end
+            coroutine.yield(false)
+        end)
+    end;
 }
 
 return kahlua
