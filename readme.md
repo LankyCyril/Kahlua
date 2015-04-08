@@ -4,6 +4,7 @@ Kahlua
 A small library to simplify common tasks.
 An eventual goal is "batteries" for Lua.
 
+
 #### prototype
 
 Lua isn't an object-oriented language, and objects are traditionally implemented
@@ -24,8 +25,8 @@ MagicBeing = kahlua.prototype () {
 ```
 
 This will create a prototype called `MagicBeing`. Apart from the fields and
-methods in this constructor, it will also create a method `new(self)` that can
-spawn "descendant" objects.
+methods that are explicitly defined, it will also create a method `new(self)`
+that can spawn "descendant" objects.
 
 Inheritance is also straightforward:
 
@@ -38,6 +39,7 @@ shrek:talk()
 ```
 
 When shrek talks, naturally, it says `"I can tell you about onions"`.
+
 
 #### global
 
@@ -59,8 +61,9 @@ require "kahlua": global "prototype"
 ```
 
 `require` imports kahlua and returns it as a table, which allows me to use its
-method (`global`) immediately and pass it itself as the first argument via
+method (`global`) immediately and pass it itself as the first argument via a
 colon.
+
 
 #### lines
 
@@ -69,5 +72,5 @@ Sometimes it's useful to register EOF inside a loop, and `kahlua.lines`, instead
 of silently finishing at EOF like `io.lines` does, returns one more chunk which
 is a boolean `false`.
 
-**NB** it relies on the implementation of `io.lines`, so if you modified it in
+**NB!** it relies on the implementation of `io.lines`, so if you modified it in
 some way, you're on your own.
