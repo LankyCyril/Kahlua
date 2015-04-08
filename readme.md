@@ -4,7 +4,7 @@ Kahlua
 A small library to simplify common tasks.
 An eventual goal is "batteries" for Lua.
 
-#### Prototype
+#### prototype
 
 Lua isn't an object-oriented language, and objects are traditionally implemented
 via prototypes. The straightforward way of creating them isn't too cumbersome,
@@ -38,3 +38,26 @@ shrek:talk()
 ```
 
 When shrek talks, naturally, it says `"I can tell you about onions"`.
+
+#### global
+
+`kahlua.global(some_table, fields)` imports specified fields from a table
+into the global namespace (`_G`).
+Often, modules are implemented as tables, so you might use this as a counterpart
+to Python's `from some_module import some_method`:
+
+```lua
+kahlua.global(math, {"sin", "cos"})
+print(sin(0.42)^2 + cos(0.42)^2)
+```
+
+If this doesn't look compelling enough, let me show you how I use this method
+almost exclusively:
+
+```lua
+require "kahlua": global "prototype"
+```
+
+`require` imports kahlua and returns it as a table, which allows me to use its
+method (`global`) immediately and pass it itself as the first argument via
+colon.
