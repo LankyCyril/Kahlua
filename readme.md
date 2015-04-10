@@ -73,7 +73,8 @@ by their positional number.
 
 ```lua
 require "kahlua": global "la"
-F = la("#1 ^ #2")
+F = la "#1 ^ #2"
+
 print(F(25, 3)) --> 15625
 ```
 
