@@ -51,4 +51,13 @@ kahlua.io = {
     end;
 }
 
+kahlua.lambda = function (expression)
+    return function (...)
+        arguments = {...}
+        parsed_expression = expression:gsub("#(%d+)", function (d) return arguments[tonumber(d)] end)
+        return loadstring("return " .. parsed_expression)()
+    end
+end
+kahlua.la = kahlua.lambda
+
 return kahlua
