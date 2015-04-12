@@ -52,9 +52,15 @@ kahlua.io = {
 }
 
 kahlua.lambda = function (expression)
-    parsed_expression = expression:gsub("#(%d+)", "({...})[%1]")
+    parsed_expression, arg_count = expression:gsub("#(%d+)", "arg%1")
+    args = {}
+    for i = 1, arg_count do
+        args[i] = "arg" .. tostring(i)
+    end
     return loadstring(
-        "return function (...) return " .. parsed_expression .. " end"
+        "return function (" .. table.concat(args, ", ") .. ") " ..
+            "return " .. parsed_expression ..
+        " end"
     )()
 end
 kahlua.la = kahlua.lambda
