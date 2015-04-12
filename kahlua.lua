@@ -38,6 +38,18 @@ kahlua = {
             end
         end
     end;
+    lambda = function (expression)
+        parsed_expression, arg_count = expression:gsub("#(%d+)", "arg%1")
+        args = {}
+        for i = 1, arg_count do
+            args[i] = "arg" .. tostring(i)
+        end
+        return loadstring(
+            "return function (" .. table.concat(args, ", ") .. ") " ..
+                "return " .. parsed_expression ..
+            " end"
+        )()
+    end;
 }
 
 kahlua.io = {
@@ -51,18 +63,6 @@ kahlua.io = {
     end;
 }
 
-kahlua.lambda = function (expression)
-    parsed_expression, arg_count = expression:gsub("#(%d+)", "arg%1")
-    args = {}
-    for i = 1, arg_count do
-        args[i] = "arg" .. tostring(i)
-    end
-    return loadstring(
-        "return function (" .. table.concat(args, ", ") .. ") " ..
-            "return " .. parsed_expression ..
-        " end"
-    )()
-end
 kahlua.la = kahlua.lambda
 
 return kahlua
