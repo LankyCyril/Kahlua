@@ -39,11 +39,16 @@ kahlua = {
         end
     end;
     lambda = function (expression)
-        parsed_expression, arg_count = expression:gsub("#(%d+)", "arg%1")
-        args = {}
-        for i = 1, arg_count do
-            args[i] = "arg" .. tostring(i)
+        arg_mask, arg_unmask = "#(%d+)", "arg"
+        arg_count, args = {}, {}
+        for i in expression:gfind(arg_mask) do
+            table.insert(arg_count, i)
         end
+        table.sort(arg_count)
+        for i = 1, arg_count[table.maxn(arg_count)] do
+            table.insert(args, arg_unmask .. tostring(i))
+        end
+        parsed_expression = expression:gsub(arg_mask, arg_unmask .. "%1")
         return loadstring(
             "return function (" .. table.concat(args, ", ") .. ") " ..
                 "return " .. parsed_expression ..
