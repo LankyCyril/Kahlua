@@ -3,7 +3,7 @@ kahlua = {
         if (elements == nil) then
             elements = {}
             for element, _ in pairs(module) do
-                table.insert(elements, element)
+                elements[#elements + 1] = element
             end
         elseif (type(elements) == "string") then
             elements = {elements}
@@ -39,16 +39,20 @@ kahlua = {
         end
     end;
     lambda = function (expression)
-        arg_mask, arg_unmask = "#(%d+)", "arg"
-        arg_count, args = {}, {}
-        for i in expression:gfind(arg_mask) do
-            table.insert(arg_count, i)
+        local arg_mask = "#(%d+)"
+        local arg_unmask = "arg"
+        local max_arg_number = 0
+        for arg_number in expression:gfind(arg_mask) do
+            local arg_number_as_int = tonumber(arg_number)
+            if arg_number_as_int > max_arg_number then
+                max_arg_number = arg_number_as_int
+            end
         end
-        table.sort(arg_count)
-        for i = 1, arg_count[table.maxn(arg_count)] do
-            table.insert(args, arg_unmask .. tostring(i))
+        local args = {}
+        for i = 1, max_arg_number do
+            args[#args + 1] = arg_unmask .. tostring(i)
         end
-        parsed_expression = expression:gsub(arg_mask, arg_unmask .. "%1")
+        local parsed_expression = expression:gsub(arg_mask, arg_unmask .. "%1")
         return loadstring(
             "return function (" .. table.concat(args, ", ") .. ") " ..
                 "return " .. parsed_expression ..
