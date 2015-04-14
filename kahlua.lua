@@ -48,13 +48,15 @@ kahlua = {
                 max_arg_number = arg_number_as_int
             end
         end
-        local args = {}
-        for i = 1, max_arg_number do
-            args[#args + 1] = arg_unmask .. tostring(i)
+        local args = arg_unmask .. "1"
+        if max_arg_number > 1 then
+            for i = 2, max_arg_number do
+                args = args .. ", " .. arg_unmask .. i
+            end
         end
         local parsed_expression = expression:gsub(arg_mask, arg_unmask .. "%1")
         return loadstring(
-            "return function (" .. table.concat(args, ", ") .. ") " ..
+            "return function (" .. args .. ") " ..
                 "return " .. parsed_expression ..
             " end"
         )()
