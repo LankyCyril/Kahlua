@@ -1,8 +1,7 @@
 Kahlua
 ======
 
-A small library to simplify common tasks.
-An eventual goal is "batteries" for Lua.
+AAAA batteries for Lua
 
 
 #### kahlua.prototype
@@ -65,15 +64,15 @@ method (`global`) immediately and pass it itself as the first argument via a
 colon.
 
 
-#### kahlua.lambda, kahlua.la
+#### kahlua.lambda
 
 A very simplistic unnamed function generator.
 Accepts a virtually unlimited number of arguments, which should be referenced
 by their positional number.
 
 ```lua
-require "kahlua": global "la"
-F = la "#1 ^ #2"
+require "kahlua": global "lambda"
+F = la "$1 ^ $2"
 
 print(F(25, 3)) --> 15625
 ```

@@ -42,7 +42,7 @@ prototype = function (parent)
 end;
 
 lambda = function (expression)
-    local arg_mask = "#(%d+)"
+    local arg_mask = "%$(%d+)"
     local arg_unmask = "arg"
     local max_arg_number = 0
     for arg_number in expression:gfind(arg_mask) do
