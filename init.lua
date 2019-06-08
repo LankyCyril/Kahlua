@@ -1,4 +1,5 @@
 kahlua = {
+ 
     global = function (module, elements)
         if (elements == nil) then
             elements = {}
@@ -16,8 +17,9 @@ kahlua = {
             end
         end
     end;
-    prototype = function (parent_prototype)
-        if parent_prototype == nil then
+ 
+    prototype = function (parent)
+        if parent == nil then
             return function (implementation)
                 final_prototype = {
                     new = function (self, parent_implementation)
@@ -30,14 +32,15 @@ kahlua = {
                 end
                 return final_prototype
             end
-        elseif (parent_prototype.new == nil) or (type(parent_prototype.new) ~= "function") then
+        elseif (parent.new == nil) or (type(parent.new) ~= "function") then
             error("Parent doesn't have a constructor.")
         else
             return function (implementation)
-                return parent_prototype:new(implementation)
+                return parent:new(implementation)
             end
         end
     end;
+ 
     lambda = function (expression)
         local arg_mask = "#(%d+)"
         local arg_unmask = "arg"
