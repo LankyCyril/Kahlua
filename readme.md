@@ -78,7 +78,7 @@ print(F(25, 3)) --> 15625
 ```
 
 
-#### kahlua.io.lines
+#### kahlua.lines
 
 This is a very simple extension to `io.lines`.
 Sometimes it's useful to register EOF inside a loop, and `kahlua.io.lines`,
